@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
 
-
-<!-- Start VWO Async SmartCode -->
+    <!-- Start VWO Async SmartCode -->
 <link rel="preconnect" href="https://dev.visualwebsiteoptimizer.com" />
 <script type='text/javascript' id='vwoCode'>
 window._vwo_code || (function() {
@@ -20,58 +19,38 @@ f=false,w=window,d=document,v=d.querySelector('#vwoCode'),cK='_vwo_'+account_id+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VWO Debugger Test Page</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
+            font-family: Arial, sans-serif;
             max-width: 1200px;
             margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
         }
         
         .header {
-            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
             margin-bottom: 30px;
         }
         
         .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .header p {
-            font-size: 1.1em;
-            opacity: 0.9;
+            margin: 0 0 10px 0;
         }
         
         .test-section {
             background: white;
-            border-radius: 12px;
-            padding: 25px;
+            padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease;
-        }
-        
-        .test-section:hover {
-            transform: translateY(-5px);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         
         .test-section h2 {
             color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.5em;
+            margin-top: 0;
             border-bottom: 2px solid #667eea;
             padding-bottom: 10px;
         }
@@ -80,54 +59,8 @@ f=false,w=window,d=document,v=d.querySelector('#vwoCode'),cK='_vwo_'+account_id+
             margin: 15px 0;
             padding: 15px;
             background: #f8f9fa;
-            border-radius: 8px;
+            border-radius: 5px;
             border-left: 4px solid #667eea;
-        }
-        
-        .test-item h3 {
-            color: #333;
-            margin-bottom: 8px;
-            font-size: 1.1em;
-        }
-        
-        .test-item p {
-            color: #666;
-            line-height: 1.6;
-        }
-        
-        .status {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: bold;
-            margin-top: 8px;
-        }
-        
-        .status.active {
-            background: #d4edda;
-            color: #155724;
-        }
-        
-        .status.protected {
-            background: #fff3cd;
-            color: #856404;
-        }
-        
-        .status.blocked {
-            background: #f8d7da;
-            color: #721c24;
-        }
-        
-        .code-block {
-            background: #282c34;
-            color: #abb2bf;
-            padding: 15px;
-            border-radius: 6px;
-            margin: 10px 0;
-            overflow-x: auto;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
         }
         
         button {
@@ -135,11 +68,10 @@ f=false,w=window,d=document,v=d.querySelector('#vwoCode'),cK='_vwo_'+account_id+
             color: white;
             border: none;
             padding: 10px 20px;
-            border-radius: 6px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 1em;
-            transition: background 0.3s ease;
-            margin: 5px;
+            font-size: 14px;
+            margin: 5px 5px 5px 0;
         }
         
         button:hover {
@@ -150,13 +82,32 @@ f=false,w=window,d=document,v=d.querySelector('#vwoCode'),cK='_vwo_'+account_id+
             margin-top: 15px;
             padding: 15px;
             background: #e7f3ff;
-            border-radius: 6px;
+            border-radius: 5px;
             border-left: 4px solid #2196F3;
             display: none;
         }
         
         .result-box.show {
             display: block;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        
+        .status.active {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status.protected {
+            background: #fff3cd;
+            color: #856404;
         }
         
         .metrics {
@@ -175,112 +126,119 @@ f=false,w=window,d=document,v=d.querySelector('#vwoCode'),cK='_vwo_'+account_id+
         }
         
         .metric-card h4 {
-            font-size: 0.9em;
-            opacity: 0.9;
-            margin-bottom: 8px;
+            margin: 0 0 10px 0;
+            font-size: 14px;
         }
         
         .metric-card .value {
-            font-size: 2em;
+            font-size: 28px;
             font-weight: bold;
+        }
+        
+        .code-block {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow-x: auto;
+            font-family: monospace;
+            font-size: 13px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🔍 VWO Debugger Test Page</h1>
-            <p>Test various scenarios for client-side VWO debugger validation</p>
-        </div>
+    <div class="header">
+        <h1>🔍 VWO Debugger Test Page</h1>
+        <p>Test various scenarios for client-side VWO debugger validation</p>
+    </div>
 
-        <!-- Test Section 1: CORS Headers -->
-        <div class="test-section">
-            <h2>1. CORS & Security Headers Test</h2>
-            <div class="test-item">
-                <h3>Cross-Origin Resource Sharing</h3>
-                <p>This page simulates CORS restrictions that typically block server-side debuggers.</p>
-                <span class="status protected">Protected</span>
-                <div class="code-block">
-Access-Control-Allow-Origin: *
+    <!-- Test Section 1: CORS Headers -->
+    <div class="test-section">
+        <h2>1. CORS & Security Headers Test</h2>
+        <div class="test-item">
+            <h3>Cross-Origin Resource Sharing</h3>
+            <p>This page simulates CORS restrictions that typically block server-side debuggers.</p>
+            <span class="status protected">Protected</span>
+            <div class="code-block">Access-Control-Allow-Origin: *
 X-Frame-Options: DENY
 Content-Security-Policy: default-src 'self'</div>
-                <button onclick="testCORS()">Test CORS Handling</button>
-                <div id="cors-result" class="result-box"></div>
+            <button onclick="testCORS()">Test CORS Handling</button>
+            <div id="cors-result" class="result-box"></div>
+        </div>
+    </div>
+
+    <!-- Test Section 2: JavaScript Detection -->
+    <div class="test-section">
+        <h2>2. JavaScript Execution Test</h2>
+        <div class="test-item">
+            <h3>Dynamic Content Loading</h3>
+            <p>Tests if debugger can detect JavaScript-rendered content and VWO tracking codes.</p>
+            <span class="status active">Active</span>
+            <button onclick="loadDynamicContent()">Load Dynamic Content</button>
+            <div id="dynamic-content"></div>
+            <div id="js-result" class="result-box"></div>
+        </div>
+    </div>
+
+    <!-- Test Section 3: VWO Mock Elements -->
+    <div class="test-section">
+        <h2>3. VWO Elements Detection</h2>
+        <div class="test-item">
+            <h3>Mock VWO Implementation</h3>
+            <p>Simulates VWO tracking elements that the debugger should detect.</p>
+            <span class="status active">Active</span>
+            <div id="vwo-container" data-vwo-test="test-campaign-123"></div>
+            <button onclick="injectVWOElements()">Inject VWO Elements</button>
+            <div id="vwo-result" class="result-box"></div>
+        </div>
+    </div>
+
+    <!-- Test Section 4: Network Requests -->
+    <div class="test-section">
+        <h2>4. Network Request Monitoring</h2>
+        <div class="test-item">
+            <h3>API Calls & Resources</h3>
+            <p>Triggers various network requests to test debugger's network monitoring capabilities.</p>
+            <span class="status active">Active</span>
+            <button onclick="triggerNetworkRequests()">Trigger Network Requests</button>
+            <div id="network-result" class="result-box"></div>
+        </div>
+    </div>
+
+    <!-- Test Section 5: Page Metrics -->
+    <div class="test-section">
+        <h2>5. Performance Metrics</h2>
+        <div class="metrics">
+            <div class="metric-card">
+                <h4>Load Time</h4>
+                <div class="value" id="load-time">--</div>
+            </div>
+            <div class="metric-card">
+                <h4>DOM Elements</h4>
+                <div class="value" id="dom-count">--</div>
+            </div>
+            <div class="metric-card">
+                <h4>Scripts Loaded</h4>
+                <div class="value" id="script-count">--</div>
+            </div>
+            <div class="metric-card">
+                <h4>VWO Status</h4>
+                <div class="value" id="vwo-status">Ready</div>
             </div>
         </div>
+        <button onclick="updateMetrics()">Refresh Metrics</button>
+    </div>
 
-        <!-- Test Section 2: JavaScript Detection -->
-        <div class="test-section">
-            <h2>2. JavaScript Execution Test</h2>
-            <div class="test-item">
-                <h3>Dynamic Content Loading</h3>
-                <p>Tests if debugger can detect JavaScript-rendered content and VWO tracking codes.</p>
-                <span class="status active">Active</span>
-                <button onclick="loadDynamicContent()">Load Dynamic Content</button>
-                <div id="dynamic-content"></div>
-                <div id="js-result" class="result-box"></div>
-            </div>
-        </div>
-
-        <!-- Test Section 3: VWO Mock Elements -->
-        <div class="test-section">
-            <h2>3. VWO Elements Detection</h2>
-            <div class="test-item">
-                <h3>Mock VWO Implementation</h3>
-                <p>Simulates VWO tracking elements that the debugger should detect.</p>
-                <span class="status active">Active</span>
-                <div id="vwo-container" data-vwo-test="test-campaign-123"></div>
-                <button onclick="injectVWOElements()">Inject VWO Elements</button>
-                <div id="vwo-result" class="result-box"></div>
-            </div>
-        </div>
-
-        <!-- Test Section 4: Network Requests -->
-        <div class="test-section">
-            <h2>4. Network Request Monitoring</h2>
-            <div class="test-item">
-                <h3>API Calls & Resources</h3>
-                <p>Triggers various network requests to test debugger's network monitoring capabilities.</p>
-                <span class="status active">Active</span>
-                <button onclick="triggerNetworkRequests()">Trigger Network Requests</button>
-                <div id="network-result" class="result-box"></div>
-            </div>
-        </div>
-
-        <!-- Test Section 5: Page Metrics -->
-        <div class="test-section">
-            <h2>5. Performance Metrics</h2>
-            <div class="metrics" id="metrics-container">
-                <div class="metric-card">
-                    <h4>Load Time</h4>
-                    <div class="value" id="load-time">--</div>
-                </div>
-                <div class="metric-card">
-                    <h4>DOM Elements</h4>
-                    <div class="value" id="dom-count">--</div>
-                </div>
-                <div class="metric-card">
-                    <h4>Scripts Loaded</h4>
-                    <div class="value" id="script-count">--</div>
-                </div>
-                <div class="metric-card">
-                    <h4>VWO Status</h4>
-                    <div class="value" id="vwo-status">Ready</div>
-                </div>
-            </div>
-            <button onclick="updateMetrics()">Refresh Metrics</button>
-        </div>
-
-        <!-- Test Section 6: Bot Detection Bypass -->
-        <div class="test-section">
-            <h2>6. Bot Detection Test</h2>
-            <div class="test-item">
-                <h3>User Agent & Behavior Analysis</h3>
-                <p>Tests if the client-side debugger can bypass bot detection mechanisms.</p>
-                <span class="status protected">Protected</span>
-                <button onclick="runBotDetection()">Run Bot Detection</button>
-                <div id="bot-result" class="result-box"></div>
-            </div>
+    <!-- Test Section 6: Bot Detection Bypass -->
+    <div class="test-section">
+        <h2>6. Bot Detection Test</h2>
+        <div class="test-item">
+            <h3>User Agent & Behavior Analysis</h3>
+            <p>Tests if the client-side debugger can bypass bot detection mechanisms.</p>
+            <span class="status protected">Protected</span>
+            <button onclick="runBotDetection()">Run Bot Detection</button>
+            <div id="bot-result" class="result-box"></div>
         </div>
     </div>
 
@@ -293,17 +251,17 @@ Content-Security-Policy: default-src 'self'</div>
             version: '4.0'
         };
 
+        console.log('VWO Test Page Loaded Successfully');
+
         // Test 1: CORS Handling
         function testCORS() {
             const result = document.getElementById('cors-result');
             result.classList.add('show');
-            result.innerHTML = `
-                <strong>CORS Test Results:</strong><br>
-                ✓ Origin: ${window.location.origin}<br>
-                ✓ Protocol: ${window.location.protocol}<br>
-                ✓ Client-side access: Granted<br>
-                ✓ Server-side would be: Blocked
-            `;
+            result.innerHTML = '<strong>CORS Test Results:</strong><br>' +
+                '✓ Origin: ' + window.location.origin + '<br>' +
+                '✓ Protocol: ' + window.location.protocol + '<br>' +
+                '✓ Client-side access: Granted<br>' +
+                '✓ Server-side would be: Blocked';
         }
 
         // Test 2: Dynamic Content
@@ -311,21 +269,16 @@ Content-Security-Policy: default-src 'self'</div>
             const content = document.getElementById('dynamic-content');
             const result = document.getElementById('js-result');
             
-            setTimeout(() => {
-                content.innerHTML = `
-                    <div style="padding: 15px; background: #e8f5e9; border-radius: 6px; margin-top: 10px;">
-                        <strong>Dynamically Loaded Content</strong><br>
-                        <span data-vwo-variation="variation-A">This is Variation A</span>
-                    </div>
-                `;
+            setTimeout(function() {
+                content.innerHTML = '<div style="padding: 15px; background: #e8f5e9; border-radius: 6px; margin-top: 10px;">' +
+                    '<strong>Dynamically Loaded Content</strong><br>' +
+                    '<span data-vwo-variation="variation-A">This is Variation A</span></div>';
                 
                 result.classList.add('show');
-                result.innerHTML = `
-                    <strong>JavaScript Detection:</strong><br>
-                    ✓ Content loaded after ${Math.random() * 2 + 1 | 0}s<br>
-                    ✓ VWO variation detected: variation-A<br>
-                    ✓ Client-side debugger can see this content
-                `;
+                result.innerHTML = '<strong>JavaScript Detection:</strong><br>' +
+                    '✓ Content loaded after 1s<br>' +
+                    '✓ VWO variation detected: variation-A<br>' +
+                    '✓ Client-side debugger can see this content';
             }, 1000);
         }
 
@@ -334,13 +287,8 @@ Content-Security-Policy: default-src 'self'</div>
             const container = document.getElementById('vwo-container');
             const result = document.getElementById('vwo-result');
             
-            container.innerHTML = `
-                <div data-vwo-element="button-cta" style="padding: 10px; background: #4CAF50; color: white; border-radius: 4px; margin: 10px 0;">
-                    VWO Tracked Element
-                </div>
-            `;
+            container.innerHTML = '<div data-vwo-element="button-cta" style="padding: 10px; background: #4CAF50; color: white; border-radius: 4px; margin: 10px 0;">VWO Tracked Element</div>';
             
-            // Create mock VWO tracking
             window._vwo_data = {
                 experiments: ['exp_123', 'exp_456'],
                 campaigns: ['campaign_abc'],
@@ -351,13 +299,11 @@ Content-Security-Policy: default-src 'self'</div>
             };
             
             result.classList.add('show');
-            result.innerHTML = `
-                <strong>VWO Elements Found:</strong><br>
-                ✓ Account ID: ${window._vwo_code.accountId}<br>
-                ✓ Active Experiments: ${window._vwo_data.experiments.length}<br>
-                ✓ Tracked Elements: 1<br>
-                ✓ Version: ${window._vwo_code.version}
-            `;
+            result.innerHTML = '<strong>VWO Elements Found:</strong><br>' +
+                '✓ Account ID: ' + window._vwo_code.accountId + '<br>' +
+                '✓ Active Experiments: ' + window._vwo_data.experiments.length + '<br>' +
+                '✓ Tracked Elements: 1<br>' +
+                '✓ Version: ' + window._vwo_code.version;
         }
 
         // Test 4: Network Requests
@@ -366,7 +312,6 @@ Content-Security-Policy: default-src 'self'</div>
             result.classList.add('show');
             result.innerHTML = '<strong>Monitoring network requests...</strong><br>';
             
-            // Simulate VWO tracking calls
             const requests = [
                 'https://dev.visualwebsiteoptimizer.com/j.php?a=123456',
                 'https://dev.visualwebsiteoptimizer.com/track-user',
@@ -374,10 +319,10 @@ Content-Security-Policy: default-src 'self'</div>
             ];
             
             let output = '';
-            requests.forEach((url, index) => {
-                setTimeout(() => {
-                    output += `✓ Request ${index + 1}: ${url.split('/').pop()}<br>`;
-                    result.innerHTML = `<strong>Network Requests:</strong><br>${output}`;
+            requests.forEach(function(url, index) {
+                setTimeout(function() {
+                    output += '✓ Request ' + (index + 1) + ': ' + url.split('/').pop() + '<br>';
+                    result.innerHTML = '<strong>Network Requests:</strong><br>' + output;
                 }, index * 500);
             });
         }
@@ -396,31 +341,29 @@ Content-Security-Policy: default-src 'self'</div>
             const result = document.getElementById('bot-result');
             result.classList.add('show');
             
-            const checks = {
-                'User Agent': navigator.userAgent.includes('bot') ? 'Bot' : 'Human',
-                'WebDriver': navigator.webdriver ? 'Detected' : 'Not Detected',
-                'Languages': navigator.languages.length > 0 ? 'Present' : 'Missing',
-                'Plugins': navigator.plugins.length > 0 ? 'Present' : 'None',
-                'Touch Support': 'ontouchstart' in window ? 'Yes' : 'No'
-            };
+            const isBot = navigator.userAgent.toLowerCase().includes('bot');
+            const hasWebDriver = navigator.webdriver;
+            const hasLanguages = navigator.languages && navigator.languages.length > 0;
+            const hasPlugins = navigator.plugins && navigator.plugins.length > 0;
+            const hasTouch = 'ontouchstart' in window;
             
-            let output = '<strong>Bot Detection Results:</strong><br>';
-            for (const [key, value] of Object.entries(checks)) {
-                output += `✓ ${key}: ${value}<br>`;
-            }
-            output += '<br><em>Client-side debugger appears as legitimate browser</em>';
+            let output = '<strong>Bot Detection Results:</strong><br>' +
+                '✓ User Agent: ' + (isBot ? 'Bot' : 'Human') + '<br>' +
+                '✓ WebDriver: ' + (hasWebDriver ? 'Detected' : 'Not Detected') + '<br>' +
+                '✓ Languages: ' + (hasLanguages ? 'Present' : 'Missing') + '<br>' +
+                '✓ Plugins: ' + (hasPlugins ? 'Present' : 'None') + '<br>' +
+                '✓ Touch Support: ' + (hasTouch ? 'Yes' : 'No') + '<br>' +
+                '<br><em>Client-side debugger appears as legitimate browser</em>';
             
             result.innerHTML = output;
         }
 
         // Initialize metrics on load
-        window.addEventListener('load', () => {
+        window.addEventListener('load', function() {
             setTimeout(updateMetrics, 1000);
+            console.log('[VWO Test] Page initialized');
+            console.log('[VWO Test] Account ID:', window._vwo_code.accountId);
         });
-
-        // Log for debugger to capture
-        console.log('[VWO Test] Page loaded successfully');
-        console.log('[VWO Test] Account ID:', window._vwo_code.accountId);
     </script>
 </body>
 </html>
