@@ -42,22 +42,20 @@
         };
     </script>
     
-    <!-- FAIL: Console Error Analysis - Throw intentional errors -->
+    <!-- FAIL: Console Error Analysis - Throw IMMEDIATE errors during script loading -->
     <script type="text/javascript">
-        // Throw error after page loads to fail Console Error Analysis
-        setTimeout(function() {
-            throw new Error("VWO Test Error: Intentional error to fail Console Error Analysis check");
-        }, 500);
-        
-        setTimeout(function() {
-            // Call undefined function
-            undefinedVWOFunction();
-        }, 800);
-        
-        setTimeout(function() {
-            // Reference error
-            console.log(nonExistentVariable.property);
-        }, 1200);
+        // Throw error IMMEDIATELY - no setTimeout
+        throw new Error("VWO Test Error: Intentional error during script loading to fail Console Error Analysis");
+    </script>
+    
+    <script type="text/javascript">
+        // Another immediate error - call undefined function
+        undefinedVWOFunction();
+    </script>
+    
+    <script type="text/javascript">
+        // Another immediate error - reference error
+        console.log(nonExistentVariable.property);
     </script>
     
     <!-- FAIL: Network Request Validation - Block network requests using CSP meta tag -->
@@ -219,12 +217,10 @@
         }, 100);
     </script>
     
-    <!-- Additional script to ensure console errors are captured -->
+    <!-- Additional script with immediate error -->
     <script>
-        // Another error pattern
-        setTimeout(function() {
-            JSON.parse('{invalid json}');
-        }, 1500);
+        // Another immediate error pattern
+        JSON.parse('{invalid json}');
     </script>
 </body>
 </html>
